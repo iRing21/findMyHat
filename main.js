@@ -11,6 +11,7 @@ class Field {
         this._fieldArray = fieldArray;
         this.x = 0;
         this.y = 0;
+        this.gameOverFlag = false;
     }
 
     print() {
@@ -22,14 +23,17 @@ class Field {
     gameOverChecker(input) {
         if (input === undefined){
             console.log('You went out of bounds, n00b, try again');
+            this.gameOverFlag = true;
             return false;            
         }
         else if (input === hole){
             console.log('You fell in a hole, you\'re human garbage');
+            this.gameOverFlag = true;
             return false; 
         }
         else if (input === hat){
-            console.log('You found your hat, suprising');
+            console.log('You found your hat, you win');
+            this.gameOverFlag = true;
             return false;
         }
         else{
@@ -39,36 +43,44 @@ class Field {
 
     playGame() {
         this.print();
-        while(this.gameOverChecker(this._fieldArray[this.x][this.y]) !== false){
+        while(this.gameOverFlag === false){
             const playerInput = prompt('Enter a travel direction, N S E or W');
             switch (playerInput.toUpperCase()){
             case 'N':
                 this.x -= 1;
-                this._fieldArray[this.x][this.y] = pathCharacter;
-                this._fieldArray[this.x+1][this.y] = fieldCharacter;
-                this.print();
+                if (this.gameOverChecker(this._fieldArray[this.x]) === true){
+                    this._fieldArray[this.x][this.y] = pathCharacter;
+                    this._fieldArray[this.x+1][this.y] = fieldCharacter;
+                    this.print();
+                }
                 break;
 
             case 'S':
                 this.x += 1;
-                this._fieldArray[this.x][this.y] = pathCharacter;
-                this._fieldArray[this.x-1][this.y] = fieldCharacter;
-                this.print();
+                if (this.gameOverChecker(this._fieldArray[this.x]) === true){
+                    this._fieldArray[this.x][this.y] = pathCharacter;
+                    this._fieldArray[this.x-1][this.y] = fieldCharacter;
+                    this.print();
+                }
                 break;
 
             case 'E':
                 this.y += 1;
-
-                this._fieldArray[this.x][this.y] = pathCharacter;
-                this._fieldArray[this.x][this.y-1] = fieldCharacter;
-                this.print();
+                if (this.gameOverChecker(this._fieldArray[this.x][this.y]) === true){
+                    this._fieldArray[this.x][this.y] = pathCharacter;
+                    this._fieldArray[this.x][this.y-1] = fieldCharacter;
+                    this.print();
+                }
                 break;
                 
             case 'W':
                 this.y -= 1;
-                this._fieldArray[this.x][this.y] = pathCharacter;
-                this._fieldArray[this.x][this.y+1] = fieldCharacter;
+                if (this.gameOverChecker(this._fieldArray[this.x][this.y]) === true){
+                    this._fieldArray[this.x][this.y] = pathCharacter;
+                    this._fieldArray[this.x][this.y+1] = fieldCharacter;
                 this.print();
+                };
+
                 break;
             
             default: 
