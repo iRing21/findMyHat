@@ -91,12 +91,37 @@ class Field {
 
     static generateField(height, width) {
         let outputField = [];
-        
         function holeOrField () {
-            let randomNum = Math.floor(Math.random * 2);
-            
+            let outputArray = [];
+            for(let i = 0; i < width; i++){
+                const randomNum = Math.floor(Math.random() * 2);
+
+                switch (randomNum){
+                    case 0:
+                        outputArray[i] = fieldCharacter;
+                        break;
+                    case 1: 
+                        outputArray[i] =hole;
+                        break;
+                }
+            }
+            return outputArray; 
         }
 
+        function hatPlacer() {
+            const hatXRandomNum = Math.floor(Math.random() * width);
+            const hatYRandomNum = Math.floor(Math.random() * height);
+            outputField[hatYRandomNum][hatXRandomNum] = hat;
+        } 
+
+        for (let j = 0; j < height; j++){
+            outputField.push(holeOrField());
+        }
+
+        hatPlacer(outputField);
+        outputField[0][0] = pathCharacter;
+        this._fieldArray = outputField;
+        return outputField; 
 
     }
 
@@ -110,4 +135,8 @@ const myField = new Field([
   ]);
 
 
-myField.playGame();
+Field.generateField(3, 3);
+
+const staticField = Field.generateField(3, 3);
+const epicTest = new Field(staticField);
+epicTest.playGame();
