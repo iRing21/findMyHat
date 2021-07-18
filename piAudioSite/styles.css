@@ -2,7 +2,14 @@
         Add margins to different sections, borders
         Center 'examples of work' container
 
+        All imgs should be same size, or we should decide on a set size for the carousel
+
 */
+
+body {
+    background-color: rgb(189, 178, 175);
+    
+}
 
 #carousel {
     margin-top: 10px;
@@ -15,15 +22,22 @@
 #carousel img {
     align-self: center;
     justify-self: center;
+    width: auto;
+    max-height: 400px;
 }
 
 #mainColumns {
     margin: 20px;
-    padding: 50px;
-    background-color: red;
-    justify-content: space-between !important;
+    width: 100% !important;
+    justify-self: center;
+    
 }
 
+.col {
+    padding: 25px;
+    text-align: start;
+    align-self: flex-start;
+}
 
 
 #examplesHeading {
@@ -31,4 +45,12 @@
     text-align: center;
     background-color: lightgray;
     margin: 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    justify-content: center;
+    align-items: center;
+    opacity: 75;
 }
